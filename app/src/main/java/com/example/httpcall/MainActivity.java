@@ -1,6 +1,9 @@
 package com.example.httpcall;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -8,6 +11,7 @@ import java.io.IOException;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -17,15 +21,24 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
 
-    final String URL = "https://reqres.in/api/users?page=2";
+    final String URL = "http://hwsrv-434369.hostwindsdns.com/api/CarModels/GetAllCarModels?brandId=10";
     @BindView(R.id.text_result)
     TextView textResult;
 
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        button = (Button)findViewById(R.id.volley);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onViewClicked();
+            }
+        });
 
         OkHttpClient okHttpClient = new OkHttpClient();
 
@@ -55,5 +68,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    public void onViewClicked() {
+
+        Intent  intent = new Intent(this,VolleyClass.class);
+        startActivity(intent);
     }
 }
